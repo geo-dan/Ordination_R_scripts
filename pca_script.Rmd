@@ -1,0 +1,49 @@
+---
+title: "PCA_script"
+author: "daniel harris"
+date: "23/03/2022"
+output: html_document
+---
+
+```{r}
+library(devtools) #install.packages("devtools")
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(factoextra)
+```
+
+
+```{r}
+data_url <- 'C:/Users/uqdharr9/OneDrive - The University of Queensland/Documents/github/Ordination_R_scripts/compiled_data.csv'
+
+data <- read.csv(data_url, header=TRUE)
+
+tmydf = setNames(data.frame(t(data[,-1])), data[,1])
+
+final_df <- as.data.frame(t(data))
+
+```
+
+
+
+
+
+```{r}
+
+groups <- as.factor(data[,c(1)])
+
+data.pca <- prcomp(data[,c(2:10)], center = TRUE,scale. = TRUE)
+
+
+fviz_pca_ind(sum_df.pca,
+             #geom.ind="point",
+             col.ind = groups, # color by groups
+             palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+             addEllipses = TRUE, # Concentration ellipses
+             ellipse.type = "confidence",
+             legend.title = "Zone",
+             repel = TRUE,
+             )
+```
+
