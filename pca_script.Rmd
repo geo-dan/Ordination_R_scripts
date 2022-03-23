@@ -15,7 +15,7 @@ library(factoextra)
 
 
 ```{r}
-data_url <- 'C:/Users/uqdharr9/OneDrive - The University of Queensland/Documents/github/Ordination_R_scripts/compiled_data.csv'
+data_url <- '/Users/dan/earth-analytics/ordination_r_scripts/Ordination_R_scripts/compiled_data.csv'
 
 data <- read.csv(data_url, header=TRUE)
 
@@ -33,17 +33,33 @@ final_df <- as.data.frame(t(data))
 
 groups <- as.factor(data[,c(1)])
 
-data.pca <- prcomp(data[,c(2:10)], center = TRUE,scale. = TRUE)
+data.pca <- prcomp(data[,c(2:11)], center = TRUE,scale. = TRUE)
 
 
-fviz_pca_ind(sum_df.pca,
-             #geom.ind="point",
+fviz_pca_ind(data.pca,
+             geom.ind="point",
              col.ind = groups, # color by groups
-             palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+             #palette = c("#00AFBB", "#E7B800", "#FC4E07"),
              addEllipses = TRUE, # Concentration ellipses
              ellipse.type = "confidence",
              legend.title = "Zone",
              repel = TRUE,
              )
+```
+
+```{r}
+
+fviz_pca_biplot(data.pca, 
+                col.ind = groups, 
+                palette = c("DarkOrange", "CornFlowerBlue", "DarkGoldenRod1", "Grey"),
+                addEllipses = TRUE, 
+                pointsize=4,pointshape=19,
+                label = "var",
+                ellipse.type = "confidence",
+                col.var="black",
+                arrowsize=0.2, labelsize=2,
+                repel = TRUE,
+                legend.title = "Zone") 
+
 ```
 
