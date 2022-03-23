@@ -36,20 +36,26 @@ groups <- as.factor(data[,c(1)])
 data.pca <- prcomp(data[,c(2:11)], center = TRUE,scale. = TRUE)
 
 
-fviz_pca_ind(data.pca,
+p <- fviz_pca_ind(data.pca,
              geom.ind="point",
+             pointsize=4,pointshape=19,
              col.ind = groups, # color by groups
-             #palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+             palette = c("DarkOrange", "CornFlowerBlue", "DarkGoldenRod1", "Grey"),
              addEllipses = TRUE, # Concentration ellipses
              ellipse.type = "confidence",
              legend.title = "Zone",
+             title= "",
              repel = TRUE,
              )
+
+p + theme_classic()
+
+ggsave("PCA.tiff")
 ```
 
 ```{r}
 
-fviz_pca_biplot(data.pca, 
+p2 <- fviz_pca_biplot(data.pca, 
                 col.ind = groups, 
                 palette = c("DarkOrange", "CornFlowerBlue", "DarkGoldenRod1", "Grey"),
                 addEllipses = TRUE, 
@@ -57,9 +63,13 @@ fviz_pca_biplot(data.pca,
                 label = "var",
                 ellipse.type = "confidence",
                 col.var="black",
-                arrowsize=0.2, labelsize=2,
+                arrowsize=0.2, labelsize=3,
+                title = "",
                 repel = TRUE,
                 legend.title = "Zone") 
+#p
+p2 + theme_classic()
+ggsave("PCA_biplot.tiff")
 
 ```
 
